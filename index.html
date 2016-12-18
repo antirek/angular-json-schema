@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="bower_components/tv4/tv4.js"></script>
+    <script type="text/javascript" src="bower_components/objectpath/lib/ObjectPath.js"></script>
+    <script type="text/javascript" src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+    <meta charset="utf-8">
+    <title>Builder example</title>
+  </head>
+  <body>
+
+    <div ng-controller="FormController">
+        <form sf-schema="schema" sf-form="form" sf-model="model"></form>
+    </div>
+
+    <script type="text/javascript">
+      angular.module('builderExample', ['schemaForm'])
+        .controller('FormController', function($scope, $http) {
+
+          $http.get('http://localhost:3000/loko/schema')
+            .then(function(res){
+            console.log(res.data);
+            $scope.schema = res.data;                
+          });
+
+          $http.get('http://localhost:3000/loko/58541a9e7e94d209c714ed8a')
+            .then(function(res){
+            console.log(res.data);
+            $scope.model = res.data;                
+          });
+
+          $scope.form = [
+            "*",
+            {
+              type: "submit",
+              title: "Save"
+            }
+          ];
+
+        });
+             
+
+    </script>
+  </body>
+</html>
+
+
+
